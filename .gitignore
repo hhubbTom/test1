@@ -3,3 +3,5 @@ geckodriver.log
 ".DS_Store"
 "__pycache__"
 "*.pyc"
+db.sqlite3 
+__pycache__ 

@@ -20,26 +20,28 @@ class NewVisitorTest(unittest.TestCase):
         #张三
         self.browser.get('http://localhost:8000')
         #他注意到
-        self.assertIn('To-Do',self.browser.title)
+        self.assertIn('To-Do', self.browser.title)
             #,"browser title was:" + self.browser.title
-        header_text=self.browser.find_element(By.TAG_NAME,'h1').text
-        self.assertIn('To-Do',header_text)
+        header_text = self.browser.find_element(By.TAG_NAME, 'h1').text
+        self.assertIn('To-Do', header_text)
 
-        #应用有
+        #应用邀请他输入一个待办事项
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
         )
-        #他在文本输入框
+        #他在文本框中输入了“Buy flowers”
         inputbox.send_keys('Buy flowers')
-        #他按了
+        # 他按回车键后，页面更新了
+        # 待办事项表格中显示了“1: Buy flowers”
 
         inputbox.send_keys(Keys.ENTER)#（3）
-        time.sleep(1)
-        self.check_for_row_in_list_table(('1: Buy flowers'))
+        time.sleep(2)
+        self.check_for_row_in_list_table('1: Buy flowers')
 
-        #页面中
+        # 页面中又显示了一个文本框，可以输入其他的待办事项
+        # 他输入了“Give a gift to Lisi”
         inputbox = self.browser.find_element(By.ID,'id_new_item')
         inputbox.send_keys('Give a gift to Lisi')
         inputbox.send_keys(Keys.ENTER)

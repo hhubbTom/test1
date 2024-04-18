@@ -1,10 +1,11 @@
 from selenium import webdriver
-import unittest
+# import unittest
 from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.common.by import By
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -18,7 +19,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         #张三
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         #他注意到
         self.assertIn('To-Do', self.browser.title)
             #,"browser title was:" + self.browser.title
@@ -51,6 +52,5 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('2: Give a gift to Lisi')
         #张三想知道这个网站
         self.fail('Finish the test!')
-if __name__== '__main__':
-    unittest.main()
+
 # 张三听说有一个在线待办事项的应用#
